@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Landing Page with Login/Register</title>
-  <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
+  <title>User Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -12,150 +12,33 @@
   <h1>Welcome to Our Website</h1>
   <div class="auth-links">
     <span id="authStatus">Not logged in</span>
-    <a href="#" id="loginLink" onclick="showLoginForm()">Login</a>
-    <a href="#" id="registerLink" onclick="showRegisterForm()">Register</a>
-    <a href="#" id="logoutLink" onclick="logout()" style="display: none;">Logout</a>
-    <a href="#" id="dashboardLink" onclick="showDashboard()" style="display: none;">Dashboard</a>
+    <a href="#" onclick="showLoginForm()">Login</a>
+    <a href="#" onclick="showRegisterForm()">Register</a>
+    <a href="admin.html">Admin Login</a>
   </div>
 </header>
 
 <div class="container">
-  <!-- Login Form -->
-  <div id="loginForm" class="auth-form">
-    <h2>Login</h2>
-    <input type="text" id="loginUsername" placeholder="Username" required>
-    <input type="password" id="loginPassword" placeholder="Password" required>
+  <div id="loginForm">
+    <h2>User Login</h2>
+    <input type="text" id="loginUsername" placeholder="Username">
+    <input type="password" id="loginPassword" placeholder="Password">
     <button onclick="login()">Login</button>
-    <p>Don't have an account? <a href="#" onclick="showRegisterForm()">Register</a></p>
   </div>
 
-  <!-- Register Form -->
-  <div id="registerForm" class="auth-form">
+  <div id="registerForm" style="display: none;">
     <h2>Register</h2>
-    <input type="text" id="registerUsername" placeholder="Username" required>
-    <input type="password" id="registerPassword" placeholder="Password" required>
+    <input type="text" id="registerUsername" placeholder="Username">
+    <input type="password" id="registerPassword" placeholder="Password">
     <button onclick="register()">Register</button>
-    <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
   </div>
 
-  <!-- Welcome Message -->
-  <div class="welcome-message" id="welcomeMessage">
+  <div id="dashboard" style="display: none;">
+    <h2>User Dashboard</h2>
     <p>Welcome, <span id="loggedInUser"></span>!</p>
-  </div>
-
-  <!-- Dashboard Section (Hidden by default) -->
-  <div id="dashboard" style="display:none;">
-    <h2>Dashboard - Data Tables</h2>
-    <table id="dataTable">
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Customer Name</th>
-          <th>Product Name</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Data will be populated here dynamically -->
-      </tbody>
-    </table>
   </div>
 </div>
 
-<script>
-  let isLoggedIn = false;
-  let loggedInUser = '';
-
-  // Show login form
-  function showLoginForm() {
-    document.getElementById('loginForm').style.display = 'block';
-    document.getElementById('registerForm').style.display = 'none';
-    document.getElementById('welcomeMessage').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'none';
-  }
-
-  // Show register form
-  function showRegisterForm() {
-    document.getElementById('registerForm').style.display = 'block';
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('welcomeMessage').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'none';
-  }
-
-  // Simulate login
-  function login() {
-    const username = document.getElementById('loginUsername').value;
-    const password = document.getElementById('loginPassword').value;
-
-    if (username && password) {
-      isLoggedIn = true;
-      loggedInUser = username;
-      document.getElementById('authStatus').innerText = 'Logged in as ' + username;
-      document.getElementById('loginLink').style.display = 'none';
-      document.getElementById('registerLink').style.display = 'none';
-      document.getElementById('logoutLink').style.display = 'inline';
-      document.getElementById('dashboardLink').style.display = 'inline'; // Show Dashboard link
-      document.getElementById('loginForm').style.display = 'none';
-      document.getElementById('welcomeMessage').style.display = 'block';
-      document.getElementById('loggedInUser').innerText = username;
-    }
-  }
-
-  // Simulate register
-  function register() {
-    const username = document.getElementById('registerUsername').value;
-    const password = document.getElementById('registerPassword').value;
-
-    if (username && password) {
-      alert('Account created! Please log in.');
-      showLoginForm();
-    }
-  }
-
-  // Simulate logout
-  function logout() {
-    isLoggedIn = false;
-    loggedInUser = '';
-    document.getElementById('authStatus').innerText = 'Not logged in';
-    document.getElementById('loginLink').style.display = 'inline';
-    document.getElementById('registerLink').style.display = 'inline';
-    document.getElementById('logoutLink').style.display = 'none';
-    document.getElementById('dashboardLink').style.display = 'none';
-    document.getElementById('welcomeMessage').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'none'; // Hide Dashboard
-  }
-
-  // Show dashboard
-  function showDashboard() {
-    document.getElementById('dashboard').style.display = 'block';
-    fetchData();
-  }
-
-  // Fetch data for dashboard (simulating a JOIN query in the backend)
-  function fetchData() {
-    // Normally, you'd use AJAX or Fetch API to get data from the backend.
-    // Here, we're simulating the data for the dashboard.
-
-    fetch('fetch_dashboard_data.php')
-      .then(response => response.json())
-      .then(data => {
-        const tbody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
-        tbody.innerHTML = '';  // Clear the table before adding new rows
-
-        data.forEach(item => {
-          const row = tbody.insertRow();
-          row.insertCell(0).innerText = item.order_id;
-          row.insertCell(1).innerText = item.customer_name;
-          row.insertCell(2).innerText = item.product_name;
-          row.insertCell(3).innerText = `$${item.price}`;
-        });
-      })
-      .catch(error => console.error('Error fetching data:', error));
-  }
-
-  // Initial state
-  showLoginForm();
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>

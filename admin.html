@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Admin Portal</h1>
+</header>
+
+<div class="container">
+  <div id="adminLoginForm">
+    <h2>Admin Login</h2>
+    <input type="text" id="adminUsername" placeholder="Admin Username">
+    <input type="password" id="adminPassword" placeholder="Password">
+    <button onclick="adminLogin()">Login</button>
+  </div>
+
+  <div id="adminDashboard" style="display: none;">
+    <h2>Admin Dashboard</h2>
+    <p>Welcome, <span id="adminUser"></span>!</p>
+
+    <h3>Security Log</h3>
+    <ul id="securityLog"></ul>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
