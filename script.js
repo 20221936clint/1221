@@ -38,3 +38,7 @@ function login() {
     logList.appendChild(logEntry);
   }
   
+  function adminLogout() {
+    alert('Admin logged out successfully!');
+    window.location.href = 'index.html'; // Redirect to index page
+  }
